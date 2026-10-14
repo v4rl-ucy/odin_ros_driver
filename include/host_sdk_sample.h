@@ -279,10 +279,11 @@ class MultiSensorPublisher {
   std::string namespacedFrameId(const std::string& frame_id) const {
 #ifdef ROS2
     const std::string node_namespace = node_->get_namespace();
-    const auto first_frame_char = node_namespace.find_first_not_of('/');
-    if (first_frame_char != std::string::npos) {
-      return node_namespace.substr(first_frame_char) + "/" + frame_id;
+    const auto first_namespace_char = node_namespace.find_first_not_of('/');
+    if (first_namespace_char != std::string::npos) {
+      return node_namespace.substr(first_namespace_char) + "/odin1/" + frame_id;
     }
+    return std::string("odin1/") + frame_id;
 #endif
     return frame_id;
   }
